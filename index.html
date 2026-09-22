@@ -3,57 +3,143 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>視線スイッチ プライバシーポリシー | 医療法人賛永会</title>
+  <title>プライバシーポリシー / Privacy Policy — 視線スイッチ（GazeSwitch）</title>
   <style>
-    body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; line-height: 1.8; max-width: 40rem; margin: 2rem auto; padding: 0 1.25rem; color: #222; }
-    h1 { font-size: 1.4rem; }
-    h2 { font-size: 1.1rem; margin-top: 1.8rem; }
-    p, li { font-size: 0.95rem; }
-    footer { margin-top: 2.5rem; font-size: 0.85rem; color: #555; }
+    :root {
+      color-scheme: light dark;
+      --text: #1b1b1f;
+      --muted: #5c5c66;
+      --border: #d9d9e0;
+      --bg: #fff;
+      --card: #f6f6f8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f2f2f5;
+        --muted: #b4b4be;
+        --border: #3a3a44;
+        --bg: #121216;
+        --card: #1c1c22;
+      }
+    }
+    body {
+      margin: 0 auto;
+      max-width: 46rem;
+      padding: 2rem 1.25rem 4rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+    }
+    h1 { font-size: 1.6rem; line-height: 1.35; }
+    h2 { font-size: 1.2rem; margin-top: 2.2rem; }
+    h3 { font-size: 1.05rem; margin-top: 1.4rem; }
+    p, li { color: var(--text); }
+    .muted { color: var(--muted); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+    nav a { color: inherit; }
+    hr { border: 0; border-top: 1px solid var(--border); margin: 2.5rem 0; }
   </style>
 </head>
 <body>
-  <h1>視線スイッチ プライバシーポリシー</h1>
-  <p>医療法人賛永会（以下「当法人」）は、iOSアプリ「視線スイッチ」（以下「本アプリ」）における情報の取り扱いを、次のとおり定めます。本アプリは、手が使いにくい方が瞬きと視線でBluetoothリレー基板を操作するためのスイッチです。医療機器ではなく、診断・治療・予防を目的としません。</p>
+  <p class="muted">視線スイッチ（GazeSwitch） / 最終更新日: 2026年9月22日</p>
+  <h1>プライバシーポリシー</h1>
+  <nav class="muted">
+    <a href="#ja">日本語</a> · <a href="#en">English</a>
+  </nav>
 
-  <h2>1. 収集する情報</h2>
-  <p>本アプリは、アカウント登録を行いません。氏名、連絡先、位置情報、広告識別子、解析用の利用統計は収集しません。カメラ映像と顔の動きのデータは、端末の外へ送信せず、当法人のサーバにも保存しません。</p>
+  <section id="ja">
+    <h2>1. はじめに</h2>
+    <p>視線スイッチ（GazeSwitch、以下「本アプリ」）は、iPhone のフロントカメラを使って利用者の瞬きと視線を検出し、Bluetooth リレー基板をオン・オフするためのスイッチアプリです。本ポリシーは、本アプリが取り扱う情報とその扱いを説明します。</p>
 
-  <h2>2. カメラと顔の動きの検知</h2>
-  <p>本アプリは、瞬きと視線を検知するために、対応端末の前面カメラと顔の動きの情報を使います。処理はすべて端末内で行います。映像の保存、録画、クラウドへのアップロード、第三者への提供は行いません。アプリを終了すると、検知用の一時的な情報は残りません。</p>
+    <h2 id="face-data">2. 顔データ（TrueDepth / ARKit フェイストラッキング）</h2>
+    <p>本アプリは、瞬きと視線を検出する目的に限り、Apple の ARKit フェイストラッキング（<code>ARFaceTrackingConfiguration</code>）を使用します。この機能は、対応端末では TrueDepth カメラを利用します。</p>
 
-  <h2>3. Bluetooth</h2>
-  <p>本アプリは、対応するリレー基板と接続するためにBluetoothを使います。送る情報は、リレーを入切するための短い合図だけです。基板の識別に使う情報は端末内の接続処理に限り、当法人へ送信しません。デモモードでは基板へ合図を送りません。</p>
+    <h3>2.1 収集する情報</h3>
+    <p>本アプリが TrueDepth / ARKit から利用するのは、次のリアルタイムな数値だけです。</p>
+    <ul>
+      <li>左右の目の閉じ具合（ブレンドシェイプ <code>eyeBlinkLeft</code> / <code>eyeBlinkRight</code>）</li>
+      <li>顔および左右の目の位置・向き、視線の向き（画面中心からのずれを計算するため）</li>
+      <li>顔を追跡できているかどうか、およびそのフレームの時刻</li>
+    </ul>
+    <p>顔のメッシュ、顔の写真、動画、深度マップ、顔の特徴量、顔認証用のテンプレート、本人確認に使える生体識別子は取得しません。カメラ映像そのものを保存することもありません。</p>
 
-  <h2>4. 利用目的</h2>
-  <p>上記の情報は、本アプリの機能（瞬きと視線の検知と基板操作）を提供するためだけに使います。広告、追跡、プロファイリングには使いません。</p>
+    <h3>2.2 利用目的</h3>
+    <p>上記の情報は、利用者が「目を閉じた」「画面を見ている」ことをその場で判定し、スイッチを押したことにしてリレーを操作するためにだけ使います。広告、分析、プロファイリング、本人確認、顔認識、アカウント作成には使いません。</p>
 
-  <h2>5. 第三者提供</h2>
-  <p>本アプリ経由で取得した情報を、第三者に提供しません。法令に基づき開示を求められた場合を除きます。</p>
+    <h3>2.3 保存・保持・削除</h3>
+    <p>顔データは端末のメモリ上で、その瞬間の判定に必要な間だけ保持します。次のフレームが届くか、アプリが背面に移るか、フェイストラッキングを停止した時点で破棄されます。ディスク、写真ライブラリ、iCloud、サーバー、ログファイルには保存しません。顔データの保管期間はないため、削除対象の保管データもありません。アプリを削除すれば、端末内に残る顔データはありません。</p>
 
-  <h2>6. 保管とセキュリティ</h2>
-  <p>本アプリは、顔映像や操作履歴をサーバに保管しません。端末側の設定値は、その端末の中だけに置かれます。</p>
+    <h3>2.4 共有・開示・第三者提供</h3>
+    <p>顔データは第三者と共有しません。外部サーバーへ送信せず、分析ツール、広告 SDK、クラウドにも送りません。Bluetooth でリレー基板へ送るのは、オンを表す「1」またはオフを表す「0」という 1 文字の操作コマンドだけであり、顔データは含まれません。</p>
 
-  <h2>7. お子さまの利用</h2>
-  <p>本アプリは子ども向けに設計したものではありません。保護者の管理のもとで支援目的に使う場合も、上記のとおり映像や個人情報は収集しません。</p>
+    <h3>2.5 保管場所</h3>
+    <p>顔データは利用者の端末内のメモリ上でのみ処理されます。開発者を含む第三者が管理するサーバーやデータベースには保存されません。</p>
 
-  <h2>8. 改定</h2>
-  <p>内容を改定する場合は、本ページを更新します。重要な変更があるときは、合理的な方法で知らせます。</p>
+    <h2>3. その他の情報</h2>
+    <h3>3.1 カメラ</h3>
+    <p>フロントカメラは、ARKit が瞬きと視線を検出するためだけに使います。映像は端末内でのみ処理し、保存も送信もしません。カメラの使用は、利用者が許可した場合に限ります。許可は iOS の設定からいつでも取り消せます。</p>
 
-  <h2>9. お問い合わせ</h2>
-  <p>
-    個人情報保護相談窓口<br>
-    医療法人賛永会 さつきホームクリニック<br>
-    〒320-0843 栃木県宇都宮市花園町17-1<br>
-    TEL：028-688-0456<br>
-    E-mail：<a href="mailto:info@satsuki-hc.com">info@satsuki-hc.com</a>
-  </p>
+    <h3>3.2 Bluetooth</h3>
+    <p>本アプリは、利用者が選んだリレー基板に接続し、オン・オフのコマンドを送ります。保存するのは、次回の自動接続のための基板識別子と、利用者自身が変更した設定値だけです。これらは端末の UserDefaults に保存され、顔データではありません。</p>
 
-  <p><a href="support.html">サポート</a></p>
+    <h3>3.3 ネットワーク</h3>
+    <p>本アプリはネットワーク通信を行いません。アカウント登録、位置情報、トラッキングも行いません。</p>
 
-  <footer>
-    <p>制定：2026年9月19日</p>
-    <p>法人全体の個人情報の取り扱いは、<a href="https://satsuki-hc.com/privacy/">さつきホームクリニック プライバシーポリシー</a>もあわせてご覧ください。</p>
-  </footer>
+    <h2>4. お問い合わせ</h2>
+    <p>本ポリシーまたは顔データの取り扱いについて質問がある場合は、App Store Connect に記載のサポート連絡先までご連絡ください。</p>
+  </section>
+
+  <hr>
+
+  <section id="en" lang="en">
+    <p class="muted">GazeSwitch / Last updated: September 22, 2026</p>
+    <h1>Privacy Policy</h1>
+
+    <h2>1. Overview</h2>
+    <p>GazeSwitch (“the App”) detects a user’s blinks and gaze with the iPhone front camera and uses that input to turn a Bluetooth relay board on or off. This policy explains what information the App handles and how that information is used.</p>
+
+    <h2 id="face-data-en">2. Face Data (TrueDepth / ARKit Face Tracking)</h2>
+    <p>The App uses Apple’s ARKit face tracking (<code>ARFaceTrackingConfiguration</code>) solely to detect blinks and gaze direction. On supported devices, this feature uses the TrueDepth camera.</p>
+
+    <h3>2.1 Information used</h3>
+    <p>From TrueDepth / ARKit, the App uses only the following real-time values:</p>
+    <ul>
+      <li>How closed each eye is (blend shapes <code>eyeBlinkLeft</code> and <code>eyeBlinkRight</code>)</li>
+      <li>The position and orientation of the face and eyes, and the gaze direction (used only to measure offset from the center of the screen)</li>
+      <li>Whether a face is currently tracked, and the timestamp of that frame</li>
+    </ul>
+    <p>The App does not obtain a face mesh, photographs, video, depth maps, facial feature templates, or any biometric identifier that could be used for identification or authentication. Camera frames are never saved.</p>
+
+    <h3>2.2 Purpose</h3>
+    <p>This information is used only to decide, in real time, whether the user is blinking or looking at the screen, so the App can treat that as a switch press and operate the relay. It is not used for advertising, analytics, profiling, identity verification, face recognition, or account creation.</p>
+
+    <h3>2.3 Storage, retention, and deletion</h3>
+    <p>Face data is kept only in device memory for as long as it is needed to evaluate the current frame. It is discarded when the next frame arrives, when the App moves to the background, or when face tracking stops. It is not written to disk, the photo library, iCloud, a server, or log files. Because face data is not retained, there is no stored face data to delete. Uninstalling the App leaves no face data on the device.</p>
+
+    <h3>2.4 Sharing and disclosure</h3>
+    <p>Face data is not shared with any third party. It is not sent to an external server, analytics tool, advertising SDK, or cloud service. The only Bluetooth payload sent to the relay board is a one-character command (“1” for on or “0” for off). That command does not include face data.</p>
+
+    <h3>2.5 Where the information is stored</h3>
+    <p>Face data is processed only in memory on the user’s device. It is not stored on any server or database controlled by the developer or any third party.</p>
+
+    <h2>3. Other information</h2>
+    <h3>3.1 Camera</h3>
+    <p>The front camera is used only so ARKit can detect blinks and gaze. Video is processed on-device and is neither saved nor transmitted. The camera is used only after the user grants permission, which can be withdrawn in iOS Settings at any time.</p>
+
+    <h3>3.2 Bluetooth</h3>
+    <p>The App connects to a relay board chosen by the user and sends on/off commands. The only values saved are the board identifier used for auto-connect and the user’s own settings. These are stored in UserDefaults on the device and are not face data.</p>
+
+    <h3>3.3 Network</h3>
+    <p>The App does not use the network. It does not create accounts, collect location data, or track users.</p>
+
+    <h2>4. Contact</h2>
+    <p>For questions about this policy or our handling of face data, please contact us using the support details listed in App Store Connect.</p>
+  </section>
 </body>
 </html>
